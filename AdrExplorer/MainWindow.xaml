@@ -8,6 +8,8 @@
             <DatePicker SelectedDate="{Binding Path=StartDate}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
             <Label Content="To:" />
             <DatePicker SelectedDate="{Binding Path=EndDate}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
+            <Button Content="Process" Click="ProcessButton_Click" />
+            <CheckBox VerticalAlignment="Center" Content="Overwrite" IsChecked="{Binding Path=Overwrite}" />
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>

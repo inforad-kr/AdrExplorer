@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -41,7 +42,7 @@ namespace AdrExplorer
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName == nameof(Study.Id))
+            if (e.PropertyName == nameof(Study.Id) || e.PropertyName == nameof(Image.SeriesInstanceUid))
             {
                 e.Cancel = true;
             }
@@ -93,6 +94,66 @@ namespace AdrExplorer
             {
                 ImageGrid.ItemsSource = null;
                 MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void ProcessButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                IsEnabled = false;
+                StudyGrid.SelectionChanged -= StudyGrid_SelectionChanged;
+
+                var studies = StudyGrid.SelectedItems.Cast<Study>().ToList();
+                StudyGrid.SelectedItems.Clear();
+                foreach (var study in studies)
+                {
+                    await ProcessStudy(study);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsEnabled = true;
+                StudyGrid.SelectionChanged += StudyGrid_SelectionChanged;
+            }
+        }
+
+        private async Task ProcessStudy(Study study)
+        {
+            StudyGrid.SelectedItem = study;
+            await PopulateImageGrid(study);
+
+            var images = ImageGrid.Items.Cast<Image>().ToList();
+            if (!m_Settings.Overwrite)
+            {
+                images = images.Where(image => image.Status == ImageStatus.Pending).ToList();
+            }
+            foreach (var image in images)
+            {
+                await ProcessImage(image);
+            }
+        }
+
+        readonly IAdrProcessor m_AdrProcessor = new AdrEmulator();
+
+        private async Task ProcessImage(Image image)
+        {
+            var files = await m_HttpClient.GetFromJsonAsync<ImageFile[]>($"image/{image.Id}/file");
+            if (files.Length > 0)
+            {
+                image.Status = ImageStatus.Downloading;
+                var data = await m_HttpClient.GetByteArrayAsync($"file/{files[0].Id}/data?jpeg=true");
+
+                image.Status = ImageStatus.Processing;
+                image.ProtocolName = await m_AdrProcessor.ProcessFile(data) ? "1" : "0";
+
+                var response = await m_HttpClient.PutAsJsonAsync($"image/{image.Id}", image);
+                response.EnsureSuccessStatusCode();
+                image.Status = ImageStatus.Done;
             }
         }
     }

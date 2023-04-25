@@ -14,6 +14,8 @@ namespace AdrExplorer
 
         public DateTime EndDate { get; set; } = DateTime.Today;
 
+        public bool Overwrite { get; set; }
+
         public static Settings Load()
         {
             try
