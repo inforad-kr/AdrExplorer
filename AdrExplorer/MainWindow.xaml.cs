@@ -149,7 +149,7 @@ namespace AdrExplorer
                 var data = await m_HttpClient.GetByteArrayAsync($"file/{files[0].Id}/data?jpeg=true");
 
                 image.Status = ImageStatus.Processing;
-                image.ProtocolName = await m_AdrProcessor.ProcessFile(data) ? "1" : "0";
+                image.SetAdrResult(await m_AdrProcessor.ProcessFile(data));
 
                 var response = await m_HttpClient.PutAsJsonAsync($"image/{image.Id}", image);
                 response.EnsureSuccessStatusCode();

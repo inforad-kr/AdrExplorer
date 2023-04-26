@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace AdrExplorer
 {
@@ -35,7 +36,7 @@ namespace AdrExplorer
         {
             get
             {
-                m_Status ??= ProtocolName != null && ProtocolName.Contains('0') || ProtocolName.Contains('1') ? ImageStatus.Done : ImageStatus.Pending;
+                m_Status ??= ProtocolName != null && m_AdrResultRegex.IsMatch(ProtocolName) ? ImageStatus.Done : ImageStatus.Pending;
                 return m_Status.Value;
             }
             set
@@ -46,6 +47,17 @@ namespace AdrExplorer
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Status)));
                 }
             }
+        }
+
+        Regex m_AdrResultRegex = new("[0-1]");
+
+        public void SetAdrResult(bool value)
+        {
+            if (ProtocolName != null)
+            {
+                ProtocolName = m_AdrResultRegex.Replace(ProtocolName, "");
+            }
+            ProtocolName += value ? "1" : "0";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
