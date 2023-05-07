@@ -24,8 +24,9 @@ namespace AdrExplorer
 
             m_HttpClient = new()
             {
-                BaseAddress = new($"{m_Settings.ServerUrl}/api/v1/")
+                BaseAddress = new(m_Settings.ServerUrl)
             };
+            m_HttpClient.BaseAddress = new(m_HttpClient.BaseAddress, "api/v1/");
             m_HttpClient.DefaultRequestHeaders.Authorization = new("Bearer", m_Settings.ServerToken);
         }
 
