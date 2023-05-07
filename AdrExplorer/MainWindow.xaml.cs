@@ -43,11 +43,13 @@ namespace AdrExplorer
                 }
                 else
                 {
+                    DeactivateStudyTab();
                     MessageBox.Show("Expired access token", Title, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
+                DeactivateStudyTab();
                 MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -65,6 +67,15 @@ namespace AdrExplorer
             TabControl.SelectedItem = StudyTab;
 
             await PopulateStudyGrid();
+        }
+
+        private void DeactivateStudyTab()
+        {
+            StudyTab.IsEnabled = false;
+            TabControl.SelectedItem = LoginTab;
+
+            StudyGrid.ItemsSource = null;
+            ImageGrid.ItemsSource = null;
         }
 
         private void Window_Closed(object sender, EventArgs e)

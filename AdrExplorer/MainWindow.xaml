@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ADR Explorer" Height="450" Width="800" FocusManager.FocusedElement="{Binding ElementName=PasswordBox}" Closed="Window_Closed">
     <TabControl Name="TabControl">
-        <TabItem Header="Login">
+        <TabItem Name="LoginTab" Header="Login">
             <Grid Name="LoginPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
