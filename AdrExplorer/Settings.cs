@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
@@ -15,6 +16,8 @@ namespace AdrExplorer
         public DateTime EndDate { get; set; } = DateTime.Today;
 
         public bool Overwrite { get; set; }
+
+        public Dictionary<string, string> CustomStrings { get; set; }
 
         public static Settings Load()
         {

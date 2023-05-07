@@ -46,6 +46,12 @@ namespace AdrExplorer
             if (e.PropertyName == nameof(Study.Id) || e.PropertyName == nameof(Image.SeriesInstanceUid))
             {
                 e.Cancel = true;
+                return;
+            }
+
+            if (m_Settings.CustomStrings?.TryGetValue(e.PropertyName, out var s) == true)
+            {
+                e.Column.Header = s;
             }
         }
 
