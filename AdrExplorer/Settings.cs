@@ -9,7 +9,7 @@ namespace AdrExplorer
     {
         public string ServerUrl { get; set; } = "https://demo.xpacs.iberisoft.com:5201";
 
-        public string ServerToken { get; set; }
+        public string UserName { get; set; }
 
         public DateTime StartDate { get; set; } = DateTime.Today.AddYears(-5);
 

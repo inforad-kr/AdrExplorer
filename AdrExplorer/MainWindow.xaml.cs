@@ -14,31 +14,63 @@ namespace AdrExplorer
     public partial class MainWindow : Window
     {
         readonly Settings m_Settings = Settings.Load();
-        readonly HttpClient m_HttpClient;
+        HttpClient m_HttpClient;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            LoginPanel.DataContext = m_Settings;
             FilterPanel.DataContext = m_Settings;
+        }
 
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            m_HttpClient?.Dispose();
             m_HttpClient = new()
             {
                 BaseAddress = new(m_Settings.ServerUrl)
             };
             m_HttpClient.BaseAddress = new(m_HttpClient.BaseAddress, "api/v1/");
-            m_HttpClient.DefaultRequestHeaders.Authorization = new("Bearer", m_Settings.ServerToken);
+
+            try
+            {
+                var token = await Login();
+                if (token.ExpirationDateTime == null || token.ExpirationDateTime < DateTime.Now)
+                {
+                    m_HttpClient.DefaultRequestHeaders.Authorization = new("Bearer", token.Token);
+                    await ActivateStudyTab();
+                }
+                else
+                {
+                    MessageBox.Show("Expired access token", Title, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private async Task<ApiToken> Login()
         {
+            var response = await m_HttpClient.PostAsJsonAsync("login", new UserCredentials { Name = m_Settings.UserName, Password = PasswordBox.Password });
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<ApiToken>();
+        }
+
+        private async Task ActivateStudyTab()
+        {
+            StudyTab.IsEnabled = true;
+            TabControl.SelectedItem = StudyTab;
+
             await PopulateStudyGrid();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             m_Settings.Save();
-            m_HttpClient.Dispose();
+            m_HttpClient?.Dispose();
         }
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

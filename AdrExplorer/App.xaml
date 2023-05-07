@@ -5,12 +5,19 @@
     <Application.Resources>
         <Style TargetType="DatePicker">
             <Setter Property="Margin" Value="3" />
+            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="3" />
-            <Setter Property="Padding" Value="5,1" />
+            <Setter Property="Padding" Value="5" />
         </Style>
         <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="3" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="3" />
+        </Style>
+        <Style TargetType="PasswordBox">
             <Setter Property="Margin" Value="3" />
         </Style>
     </Application.Resources>

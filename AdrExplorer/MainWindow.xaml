@@ -1,32 +1,57 @@
 ﻿<Window x:Class="AdrExplorer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ADR Explorer" Height="450" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
-    <DockPanel>
-        <Grid Name="FilterPanel" DockPanel.Dock="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <Label Content="From:" />
-                <DatePicker SelectedDate="{Binding Path=StartDate}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
-                <Label Content="To:" />
-                <DatePicker SelectedDate="{Binding Path=EndDate}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
-            </StackPanel>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <Button Content="Process" Click="ProcessButton_Click" />
-                <CheckBox VerticalAlignment="Center" Content="Overwrite" IsChecked="{Binding Path=Overwrite}" />
-            </StackPanel>
-        </Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <DataGrid Name="StudyGrid" Grid.Row="0" AutoGeneratingColumn="Grid_AutoGeneratingColumn" SelectionChanged="StudyGrid_SelectionChanged" />
-            <DataGrid Name="ImageGrid" Grid.Row="1" AutoGeneratingColumn="Grid_AutoGeneratingColumn" />
-        </Grid>
-    </DockPanel>
+        Title="ADR Explorer" Height="450" Width="800" FocusManager.FocusedElement="{Binding ElementName=PasswordBox}" Closed="Window_Closed">
+    <TabControl Name="TabControl">
+        <TabItem Header="Login">
+            <Grid Name="LoginPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="300" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Server:" />
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=ServerUrl}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="User:" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=UserName}" />
+                <Label Grid.Row="2" Grid.Column="0" Content="Password:" />
+                <PasswordBox Name="PasswordBox" Grid.Row="2" Grid.Column="1" />
+                <Button Grid.Row="3" Grid.Column="1" Content="Login" IsDefault="True" Click="LoginButton_Click" />
+            </Grid>
+        </TabItem>
+        <TabItem Name="StudyTab" Header="Studies" IsEnabled="False">
+            <DockPanel>
+                <Grid Name="FilterPanel" DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Label Content="From:" />
+                        <DatePicker SelectedDate="{Binding Path=StartDate}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
+                        <Label Content="To:" />
+                        <DatePicker SelectedDate="{Binding Path=EndDate}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <Button Content="Process" Click="ProcessButton_Click" />
+                        <CheckBox VerticalAlignment="Center" Content="Overwrite" IsChecked="{Binding Path=Overwrite}" />
+                    </StackPanel>
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <DataGrid Name="StudyGrid" Grid.Row="0" AutoGeneratingColumn="Grid_AutoGeneratingColumn" SelectionChanged="StudyGrid_SelectionChanged" />
+                    <DataGrid Name="ImageGrid" Grid.Row="1" AutoGeneratingColumn="Grid_AutoGeneratingColumn" />
+                </Grid>
+            </DockPanel>
+        </TabItem>
+    </TabControl>
 </Window>
