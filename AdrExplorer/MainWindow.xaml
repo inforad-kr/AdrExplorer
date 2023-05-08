@@ -20,7 +20,7 @@
                 <Label Grid.Row="1" Grid.Column="0" Content="User:" />
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=UserName}" />
                 <Label Grid.Row="2" Grid.Column="0" Content="Password:" />
-                <PasswordBox Name="PasswordBox" Grid.Row="2" Grid.Column="1" />
+                <PasswordBox Name="PasswordBox" Grid.Row="2" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChanged" />
                 <Button Grid.Row="3" Grid.Column="1" Content="Login" IsDefault="True" Click="LoginButton_Click" />
             </Grid>
         </TabItem>

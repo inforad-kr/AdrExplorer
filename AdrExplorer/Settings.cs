@@ -11,6 +11,8 @@ namespace AdrExplorer
 
         public string UserName { get; set; }
 
+        public string Password { get; set; }
+
         public DateTime StartDate { get; set; } = DateTime.Today.AddYears(-5);
 
         public DateTime EndDate { get; set; } = DateTime.Today;

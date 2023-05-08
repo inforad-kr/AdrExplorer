@@ -22,6 +22,7 @@ namespace AdrExplorer
 
             LoginPanel.DataContext = m_Settings;
             FilterPanel.DataContext = m_Settings;
+            PasswordBox.Password = new(' ', 5);
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -56,7 +57,7 @@ namespace AdrExplorer
 
         private async Task<ApiToken> Login()
         {
-            var response = await m_HttpClient.PostAsJsonAsync("login", new UserCredentials { Name = m_Settings.UserName, Password = PasswordBox.Password });
+            var response = await m_HttpClient.PostAsJsonAsync("login", new UserCredentials { Name = m_Settings.UserName, Password = m_Settings.Password });
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<ApiToken>();
         }
@@ -82,6 +83,14 @@ namespace AdrExplorer
         {
             m_Settings.Save();
             m_HttpClient?.Dispose();
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+                m_Settings.Password = PasswordBox.Password;
+            }
         }
 
         private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
