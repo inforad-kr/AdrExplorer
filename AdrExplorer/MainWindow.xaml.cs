@@ -105,6 +105,7 @@ namespace AdrExplorer
             {
                 e.Column.Header = s;
             }
+            e.Column.CanUserReorder = false;
         }
 
         private async void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
