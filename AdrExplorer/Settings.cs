@@ -19,6 +19,8 @@ namespace AdrExplorer
 
         public bool Overwrite { get; set; }
 
+        public int StudyCount { get; set; } = 5000;
+
         public Dictionary<string, string> CustomStrings { get; set; }
 
         public static Settings Load()

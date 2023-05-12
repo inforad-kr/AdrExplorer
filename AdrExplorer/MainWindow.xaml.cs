@@ -132,7 +132,8 @@ namespace AdrExplorer
         {
             try
             {
-                var studies = await m_HttpClient.GetFromJsonAsync<Study[]>($"study?StartStudyDateTime={m_Settings.StartDate:yyyy-MM-dd}&EndStudyDateTime={m_Settings.EndDate:yyyy-MM-dd}");
+                var studies = await m_HttpClient.GetFromJsonAsync<Study[]>($"study?StartStudyDateTime={m_Settings.StartDate:yyyy-MM-dd}&EndStudyDateTime={m_Settings.EndDate:yyyy-MM-dd}&" +
+                    $"count={m_Settings.StudyCount}");
                 StudyGrid.ItemsSource = studies;
             }
             catch (Exception ex)
