@@ -48,8 +48,8 @@
                         <RowDefinition Height="2*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <DataGrid Name="StudyGrid" Grid.Row="0" AutoGeneratingColumn="Grid_AutoGeneratingColumn" SelectionChanged="StudyGrid_SelectionChanged" />
-                    <DataGrid Name="ImageGrid" Grid.Row="1" AutoGeneratingColumn="Grid_AutoGeneratingColumn" />
+                    <DataGrid Name="StudyGrid" Grid.Row="0" IsReadOnly="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn" SelectionChanged="StudyGrid_SelectionChanged" />
+                    <DataGrid Name="ImageGrid" Grid.Row="1" IsReadOnly="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn" />
                 </Grid>
             </DockPanel>
         </TabItem>
