@@ -20,5 +20,9 @@
         <Style TargetType="PasswordBox">
             <Setter Property="Margin" Value="3" />
         </Style>
+        <Style TargetType="ProgressBar">
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Height" Value="20" />
+        </Style>
     </Application.Resources>
 </Application>

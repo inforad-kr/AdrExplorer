@@ -177,10 +177,13 @@ namespace AdrExplorer
                 StudyGrid.SelectionChanged -= StudyGrid_SelectionChanged;
 
                 var studies = StudyGrid.SelectedItems.Cast<Study>().ToList();
+                ProgressBar.Value = 0;
+                ProgressBar.Maximum = studies.Count;
                 StudyGrid.SelectedItems.Clear();
                 foreach (var study in studies)
                 {
                     await ProcessStudy(study);
+                    ++ProgressBar.Value;
                 }
             }
             catch (Exception ex)
