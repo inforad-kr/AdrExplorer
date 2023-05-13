@@ -37,6 +37,7 @@
                         <DatePicker SelectedDate="{Binding Path=StartDate}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
                         <Label Content="To:" />
                         <DatePicker SelectedDate="{Binding Path=EndDate}" SelectedDateChanged="DatePicker_SelectedDateChanged" />
+                        <CheckBox VerticalAlignment="Center" Content="Pending Only" IsChecked="{Binding Path=PendingOnly}" Click="PendingOnlyCheckBox_Click" />
                     </StackPanel>
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <Button Content="Process" Click="ProcessButton_Click" />

@@ -116,6 +116,11 @@ namespace AdrExplorer
             }
         }
 
+        private async void PendingOnlyCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            await PopulateStudyGrid();
+        }
+
         private async void StudyGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var study = StudyGrid.SelectedItems.Count == 1 ? (Study)StudyGrid.SelectedItems[0] : null;
@@ -133,8 +138,14 @@ namespace AdrExplorer
         {
             try
             {
-                var studies = await m_HttpClient.GetFromJsonAsync<Study[]>($"study?StartStudyDateTime={m_Settings.StartDate:yyyy-MM-dd}&EndStudyDateTime={m_Settings.EndDate:yyyy-MM-dd}&" +
-                    $"count={m_Settings.StudyCount}");
+                var requestUri = $"study?StartStudyDateTime={m_Settings.StartDate:yyyy-MM-dd}&EndStudyDateTime={m_Settings.EndDate:yyyy-MM-dd}&count={m_Settings.StudyCount}";
+                var studies = await m_HttpClient.GetFromJsonAsync<Study[]>(requestUri);
+                if (m_Settings.PendingOnly)
+                {
+                    var doneStudies = await m_HttpClient.GetFromJsonAsync<Study[]>(requestUri + "&protocolName=*0*");
+                    var doneStudies2 = await m_HttpClient.GetFromJsonAsync<Study[]>(requestUri + "&protocolName=*1*");
+                    studies = studies.ExceptBy(doneStudies.Union(doneStudies2).Select(study => study.Id), study => study.Id).ToArray();
+                }
                 StudyGrid.ItemsSource = studies;
             }
             catch (Exception ex)
@@ -181,6 +192,8 @@ namespace AdrExplorer
                 IsEnabled = true;
                 StudyGrid.SelectionChanged += StudyGrid_SelectionChanged;
             }
+
+            await PopulateStudyGrid();
         }
 
         private async Task ProcessStudy(Study study)

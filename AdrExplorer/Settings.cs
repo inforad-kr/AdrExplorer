@@ -17,6 +17,8 @@ namespace AdrExplorer
 
         public DateTime EndDate { get; set; } = DateTime.Today;
 
+        public bool PendingOnly { get; set; }
+
         public bool Overwrite { get; set; }
 
         public int StudyCount { get; set; } = 5000;
