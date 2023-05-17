@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace AdrExplorer
+namespace AdrExplorer.Services
 {
-    class AdrEmulator : IAdrProcessor
+    public class AdrEmulator : IAdrProcessor
     {
         public async Task<bool> ProcessFile(byte[] _)
         {

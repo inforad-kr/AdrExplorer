@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace AdrExplorer
+namespace AdrExplorer.Services
 {
-    interface IAdrProcessor
+    public interface IAdrProcessor
     {
         Task<bool> ProcessFile(byte[] data);
     }
