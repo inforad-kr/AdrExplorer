@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -216,8 +217,6 @@ namespace AdrExplorer
             }
         }
 
-        readonly IAdrProcessor m_AdrProcessor = new AdrEmulator();
-
         private async Task ProcessImage(Image image)
         {
             var files = await m_HttpClient.GetFromJsonAsync<ImageFile[]>($"image/{image.Id}/file");
@@ -227,12 +226,20 @@ namespace AdrExplorer
                 var data = await m_HttpClient.GetByteArrayAsync($"file/{files[0].Id}/data?jpeg=true");
 
                 image.Status = ImageStatus.Processing;
-                image.SetAdrResult(await m_AdrProcessor.ProcessFile(data));
+                var adrProcessor = CreateAdrProcessor();
+                image.SetAdrResult(await adrProcessor.ProcessFile(data));
 
                 var response = await m_HttpClient.PutAsJsonAsync($"image/{image.Id}", image);
                 response.EnsureSuccessStatusCode();
                 image.Status = ImageStatus.Done;
             }
+        }
+
+        private IAdrProcessor CreateAdrProcessor()
+        {
+            var assembly = Assembly.Load(m_Settings.AdrProcessorModule);
+            var type = assembly.GetTypes().First(type => type.IsAssignableTo(typeof(IAdrProcessor)));
+            return (IAdrProcessor)Activator.CreateInstance(type);
         }
     }
 }
