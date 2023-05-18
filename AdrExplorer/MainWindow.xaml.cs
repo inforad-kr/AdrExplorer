@@ -237,7 +237,7 @@ namespace AdrExplorer
 
         private IAdrProcessor CreateAdrProcessor()
         {
-            var assembly = Assembly.Load(m_Settings.AdrProcessorModule);
+            var assembly = Assembly.LoadFrom(m_Settings.AdrProcessorModule);
             var type = assembly.GetTypes().First(type => type.IsAssignableTo(typeof(IAdrProcessor)));
             return (IAdrProcessor)Activator.CreateInstance(type);
         }

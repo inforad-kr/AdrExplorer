@@ -25,7 +25,7 @@ namespace AdrExplorer
 
         public Dictionary<string, string> CustomStrings { get; set; }
 
-        public string AdrProcessorModule { get; set; } = "AdrExplorer.Services";
+        public string AdrProcessorModule { get; set; } = "AdrExplorer.Services.dll";
 
         public static Settings Load()
         {
