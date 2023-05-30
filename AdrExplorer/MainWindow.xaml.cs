@@ -39,7 +39,7 @@ namespace AdrExplorer
             try
             {
                 var token = await Login();
-                if (token.ExpirationDateTime == null || token.ExpirationDateTime < DateTime.Now)
+                if (token.ExpirationDateTime == null || token.ExpirationDateTime >= DateTime.Now)
                 {
                     m_HttpClient.DefaultRequestHeaders.Authorization = new("Bearer", token.Token);
                     await ActivateStudyTab();
