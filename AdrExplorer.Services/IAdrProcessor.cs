@@ -4,6 +4,10 @@ namespace AdrExplorer.Services
 {
     public interface IAdrProcessor
     {
-        Task<bool> ProcessFile(byte[] data);
+        void LoadFile(int id, byte[] data);
+
+        Task ProcessFiles();
+
+        bool? GetResult(int id);
     }
 }
