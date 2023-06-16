@@ -219,11 +219,11 @@ namespace AdrExplorer
 
         private async Task ProcessImage(Image image)
         {
-            var files = await m_HttpClient.GetFromJsonAsync<ImageFile[]>($"image/{image.Id}/file");
-            if (files.Length > 0)
+            var file = (await m_HttpClient.GetFromJsonAsync<ImageFile[]>($"image/{image.Id}/file")).FirstOrDefault();
+            if (file != null)
             {
                 image.Status = ImageStatus.Downloading;
-                var data = await m_HttpClient.GetByteArrayAsync($"file/{files[0].Id}/data?jpeg=true");
+                var data = await m_HttpClient.GetByteArrayAsync($"file/{file.Id}/data?jpeg=true");
 
                 image.Status = ImageStatus.Processing;
                 var adrProcessor = CreateAdrProcessor();
