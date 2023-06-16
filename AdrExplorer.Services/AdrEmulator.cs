@@ -1,14 +1,21 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AdrExplorer.Services
 {
     public class AdrEmulator : IAdrProcessor
     {
-        public async Task<bool> ProcessFile(byte[] _)
+        public void LoadFile(int id, byte[] data)
+        {
+        }
+
+        public async Task ProcessFiles()
         {
             await Task.Delay(5000);
-            return Random.Shared.Next(2) != 0;
+        }
+
+        public bool? GetResult(int id)
+        {
+            return id % 2 != 0;
         }
     }
 }
