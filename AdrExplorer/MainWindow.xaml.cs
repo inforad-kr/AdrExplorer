@@ -1,5 +1,6 @@
 ﻿using AdrExplorer.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -211,27 +212,39 @@ namespace AdrExplorer
             {
                 images = images.Where(image => image.Status == ImageStatus.Pending).ToList();
             }
-            foreach (var image in images)
-            {
-                await ProcessImage(image);
-            }
+            await ProcessImages(images);
         }
 
-        private async Task ProcessImage(Image image)
+        private async Task ProcessImages(List<Image> images)
         {
-            var file = (await m_HttpClient.GetFromJsonAsync<ImageFile[]>($"image/{image.Id}/file")).FirstOrDefault();
-            if (file != null)
+            var adrProcessor = CreateAdrProcessor();
+            foreach (var image in images)
             {
-                image.Status = ImageStatus.Downloading;
-                var data = await m_HttpClient.GetByteArrayAsync($"file/{file.Id}/data?jpeg=true");
+                var file = (await m_HttpClient.GetFromJsonAsync<ImageFile[]>($"image/{image.Id}/file")).FirstOrDefault();
+                if (file != null)
+                {
+                    image.Status = ImageStatus.Downloading;
+                    var data = await m_HttpClient.GetByteArrayAsync($"file/{file.Id}/data?jpeg=true");
+                    adrProcessor.LoadFile(image.Id, data);
+                }
+            }
 
+            foreach (var image in images)
+            {
                 image.Status = ImageStatus.Processing;
-                var adrProcessor = CreateAdrProcessor();
-                image.SetAdrResult(await adrProcessor.ProcessFile(data));
+            }
+            await adrProcessor.ProcessFiles();
 
-                var response = await m_HttpClient.PutAsJsonAsync($"image/{image.Id}", image);
-                response.EnsureSuccessStatusCode();
-                image.Status = ImageStatus.Done;
+            foreach (var image in images)
+            {
+                var result = adrProcessor.GetResult(image.Id);
+                if (result != null)
+                {
+                    image.SetAdrResult(result.Value);
+                    var response = await m_HttpClient.PutAsJsonAsync($"image/{image.Id}", image);
+                    response.EnsureSuccessStatusCode();
+                    image.Status = ImageStatus.Done;
+                }
             }
         }
 
