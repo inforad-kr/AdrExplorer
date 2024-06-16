@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdrExplorer", "AdrExplorer\AdrExplorer.csproj", "{B66BFFA5-6A17-4309-BD87-0AF6F8966467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdrExplorer.Services", "AdrExplorer.Services\AdrExplorer.Services.csproj", "{0B816AD3-82AF-44EC-91A1-06E289DA51EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdrExplorer.Services", "AdrExplorer.Services\AdrExplorer.Services.csproj", "{0B816AD3-82AF-44EC-91A1-06E289DA51EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
