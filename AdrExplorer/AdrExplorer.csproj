@@ -6,11 +6,12 @@
     <UseWPF>true</UseWPF>
     <Authors>Pavel Zaytsev</Authors>
     <Company>Iberis Software</Company>
-    <Copyright>Copyright © 2023</Copyright>
-    <Version>1.0.0</Version>
+    <Copyright>Copyright © 2024</Copyright>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdrExplorer.Hhi\AdrExplorer.Hhi.csproj" />
     <ProjectReference Include="..\AdrExplorer.Services\AdrExplorer.Services.csproj" />
   </ItemGroup>
 
