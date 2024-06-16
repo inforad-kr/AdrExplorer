@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Authors>Pavel Zaytsev</Authors>
+    <Company>Iberis Software</Company>
+    <Copyright>Copyright © 2024</Copyright>
+    <Version>1.0.1</Version>
+    <Product>AdrExplorer</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdrExplorer.Services\AdrExplorer.Services.csproj" />
+  </ItemGroup>
+
+</Project>
