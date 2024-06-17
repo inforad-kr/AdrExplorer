@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdrExplorer", "AdrExplorer\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdrExplorer.Services", "AdrExplorer.Services\AdrExplorer.Services.csproj", "{0B816AD3-82AF-44EC-91A1-06E289DA51EE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdrExplorer.Hhi", "AdrExplorer.Hhi\AdrExplorer.Hhi.csproj", "{007BB2A2-4093-4837-BE5A-0D0663819A3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0B816AD3-82AF-44EC-91A1-06E289DA51EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B816AD3-82AF-44EC-91A1-06E289DA51EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B816AD3-82AF-44EC-91A1-06E289DA51EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{007BB2A2-4093-4837-BE5A-0D0663819A3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{007BB2A2-4093-4837-BE5A-0D0663819A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{007BB2A2-4093-4837-BE5A-0D0663819A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{007BB2A2-4093-4837-BE5A-0D0663819A3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,17 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Pavel Zaytsev</Authors>
     <Company>Iberis Software</Company>
     <Copyright>Copyright © 2024</Copyright>
     <Version>1.0.1</Version>
+    <Product>AdrExplorer</Product>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdrExplorer.Hhi\AdrExplorer.Hhi.csproj" />
     <ProjectReference Include="..\AdrExplorer.Services\AdrExplorer.Services.csproj" />
   </ItemGroup>
 
