@@ -11,16 +11,16 @@ namespace AdrExplorer.Hhi
 {
     class AdrProcessor : IAdrProcessor
     {
-        string m_FolderPath;
+        readonly string m_FolderPath;
         Dictionary<int, bool> m_Results;
 
         public AdrProcessor()
         {
             m_FolderPath = Path.Combine(Path.GetTempPath(), "AdrExplorer");
             Directory.CreateDirectory(m_FolderPath);
-            foreach (var file in Directory.EnumerateFiles(m_FolderPath, "*.jpg"))
+            foreach (var filePath in Directory.EnumerateFiles(m_FolderPath, "*.jpg"))
             {
-                File.Delete(file);
+                File.Delete(filePath);
             }
         }
 
@@ -55,6 +55,6 @@ namespace AdrExplorer.Hhi
                 element => element.GetProperty("status").GetInt32() != 0);
         }
 
-        public bool? GetResult(int id) => m_Results.TryGetValue(id, out var flag) ? flag : null;
+        public bool? GetResult(int id) => m_Results?.TryGetValue(id, out var flag) == true ? flag : null;
     }
 }
