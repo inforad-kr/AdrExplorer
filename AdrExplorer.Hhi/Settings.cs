@@ -1,26 +1,25 @@
 ﻿using System.IO;
 using System.Text.Json;
 
-namespace AdrExplorer.Hhi
+namespace AdrExplorer.Hhi;
+
+class Settings
 {
-    class Settings
+    public string ProcessPath { get; set; }
+
+    public string ProcessArgs { get; set; }
+
+    public static Settings Load()
     {
-        public string ProcessPath { get; set; }
-
-        public string ProcessArgs { get; set; }
-
-        public static Settings Load()
+        try
         {
-            try
-            {
-                return JsonSerializer.Deserialize<Settings>(File.ReadAllText(FilePath));
-            }
-            catch
-            {
-                return new();
-            }
+            return JsonSerializer.Deserialize<Settings>(File.ReadAllText(FilePath));
         }
-
-        private static string FilePath => Path.ChangeExtension(typeof(Settings).Assembly.Location, ".json");
+        catch
+        {
+            return new();
+        }
     }
+
+    private static string FilePath => Path.ChangeExtension(typeof(Settings).Assembly.Location, ".json");
 }

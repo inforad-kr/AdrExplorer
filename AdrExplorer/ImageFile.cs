@@ -1,7 +1,6 @@
-﻿namespace AdrExplorer
+﻿namespace AdrExplorer;
+
+class ImageFile
 {
-    class ImageFile
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }

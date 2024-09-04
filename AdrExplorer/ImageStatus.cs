@@ -1,10 +1,9 @@
-﻿namespace AdrExplorer
+﻿namespace AdrExplorer;
+
+enum ImageStatus
 {
-    enum ImageStatus
-    {
-        Pending,
-        Downloading,
-        Processing,
-        Done
-    }
+    Pending,
+    Downloading,
+    Processing,
+    Done
 }

@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
 
-namespace AdrExplorer.Services
+namespace AdrExplorer.Services;
+
+public interface IAdrProcessor
 {
-    public interface IAdrProcessor
-    {
-        void LoadFile(int id, byte[] data);
+    void LoadFile(int id, byte[] data);
 
-        Task ProcessFiles();
+    Task ProcessFiles();
 
-        bool? GetResult(int id);
-    }
+    bool? GetResult(int id);
 }

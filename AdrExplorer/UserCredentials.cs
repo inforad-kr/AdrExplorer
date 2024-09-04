@@ -1,9 +1,8 @@
-﻿namespace AdrExplorer
-{
-    class UserCredentials
-    {
-        public string Name { get; set; }
+﻿namespace AdrExplorer;
 
-        public string Password { get; set; }
-    }
+class UserCredentials
+{
+    public string Name { get; set; }
+
+    public string Password { get; set; }
 }
