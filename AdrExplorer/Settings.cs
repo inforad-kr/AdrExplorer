@@ -41,7 +41,12 @@ class Settings
         }
     }
 
-    public void Save() => File.WriteAllText(FilePath, JsonSerializer.Serialize(this));
+    static readonly JsonSerializerOptions m_SerializerOptions = new()
+    {
+        WriteIndented = true
+    };
+
+    public void Save() => File.WriteAllText(FilePath, JsonSerializer.Serialize(this, m_SerializerOptions));
 
     private static string FilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nameof(Settings) + ".json");
 }
