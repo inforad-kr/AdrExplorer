@@ -5,7 +5,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <Authors>Pavel Zaytsev</Authors>
-    <Company>Iberis Software</Company>
+    <Company>InfoRAD</Company>
     <Copyright>Copyright © 2024</Copyright>
     <Version>1.0.2</Version>
   </PropertyGroup>

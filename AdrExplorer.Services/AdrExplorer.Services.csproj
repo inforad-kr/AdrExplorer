@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Pavel Zaytsev</Authors>
-    <Company>Iberis Software</Company>
+    <Company>InfoRAD</Company>
     <Copyright>Copyright © 2023</Copyright>
     <Version>1.0.0</Version>
     <Product>AdrExplorer</Product>
