@@ -49,7 +49,7 @@ class Image : INotifyPropertyChanged
         }
     }
 
-    Regex m_AdrResultRegex = new("[0-1]");
+    readonly Regex m_AdrResultRegex = new("[0-1]");
 
     public void SetAdrResult(bool value)
     {

@@ -98,7 +98,7 @@ public partial class MainWindow : Window
 
     private void Grid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
     {
-        if (e.PropertyName == nameof(Study.Id) || e.PropertyName == nameof(Image.SeriesInstanceUid))
+        if (e.PropertyName is nameof(Study.Id) or nameof(Image.SeriesInstanceUid))
         {
             e.Cancel = true;
             return;
