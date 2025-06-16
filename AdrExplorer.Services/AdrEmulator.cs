@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace AdrExplorer.Services;
+﻿namespace AdrExplorer.Services;
 
 public class AdrEmulator : IAdrProcessor
 {

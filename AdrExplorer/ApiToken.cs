@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AdrExplorer;
+﻿namespace AdrExplorer;
 
 class ApiToken
 {
